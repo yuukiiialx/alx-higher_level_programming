@@ -1,10 +1,7 @@
 #!/usr/bin/python3
+"""checks instance of obj against class"""
 
 
 def is_kind_of_class(obj, a_class):
-    '''function: is_kind_of_class
-    obj: an object
-    a_class: a class
-    Returns: Bool
-    '''
+    """returns"""
     return isinstance(obj, a_class)
