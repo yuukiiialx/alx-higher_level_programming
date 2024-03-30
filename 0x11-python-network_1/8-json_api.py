@@ -1,32 +1,21 @@
 #!/usr/bin/python3
-"""
-Module  sends a POST request to http://0.0.0.0:5000/search_user
-with the letter as a parameter.
-"""
-import requests
-from sys import argv
-
-
-def main(argv):
-    """
-    Script that takes in a letter and sends a POST request to
-    http://0.0.0.0:5000/search_user with the letter as a parameter.
-    """
-    if len(argv) < 2:
-        q = ""
-    else:
-        q = argv[1]
-    payload = {'q': q}
-    url = "http://0.0.0.0:5000/search_user"
-    r = requests.post(url, data=payload)
-    try:
-        result = r.json()
-        if bool(result) is False:
-            print("No result")
-        else:
-            print("[{}] {}".format(result['id'], result['name']))
-    except:
-        print("Not a valid JSON")
+""" sends a POST request to the passed URL with the email as a parameter"""
 
 if __name__ == "__main__":
-    main(argv)
+    import requests
+    import sys
+
+    value = ""
+    if len(sys.argv) > 1:
+        value = sys.argv[1]
+    data = {"q": value}
+    response = requests.post("http://0.0.0.0:5000/search_user", data=data)
+    try:
+        json_response = response.json()
+        if json_response:
+            print("[{}] {}".format(json_response.get("id"),
+                                   json_response.get("name")))
+        else:
+            print("No result")
+    except ValueError:
+        print("Not a valid JSON")
